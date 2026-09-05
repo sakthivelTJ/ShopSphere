@@ -14,6 +14,7 @@
     <groupId>com.shopsphere</groupId>
     <artifactId>ShopSphere</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>ShopSphere</name>
     <description>ShopSphere E-Commerce Application with Spring Boot, Hibernate, JDBC and JSP</description>
     
@@ -78,6 +79,15 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <targetPath>META-INF/resources</targetPath>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
