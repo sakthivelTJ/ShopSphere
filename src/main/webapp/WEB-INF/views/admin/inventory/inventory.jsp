@@ -42,7 +42,7 @@
                                 <c:forEach var="size" items="${p.productSizes}">
                                     <tr>
                                         <td class="fw-bold">${p.productName}</td>
-                                        <td><span class="badge bg-secondary-subtle text-secondary">${size.sizeLabel}</span></td>
+                                        <td><span class="badge bg-secondary-subtle text-secondary-subtle">${size.sizeLabel}</span></td>
                                         <td><code>${size.skuCode}</code></td>
                                         <td class="fw-bold">${size.stockQuantity}</td>
                                         <td>

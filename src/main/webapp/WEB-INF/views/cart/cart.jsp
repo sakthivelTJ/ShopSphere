@@ -49,7 +49,7 @@
                                                             <img src="${item.product.imageUrl}" class="rounded-3" style="width: 55px; height: 55px; object-fit: cover;" alt="">
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="width: 55px; height: 55px;">
+                                                            <div class="glass-card rounded-3 d-flex align-items-center justify-content-center" style="width: 55px; height: 55px;">
                                                                 <i class="bi bi-image text-muted"></i>
                                                             </div>
                                                         </c:otherwise>
@@ -59,7 +59,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><span class="badge bg-secondary-subtle text-secondary">${item.sizeLabel}</span></td>
+                                            <td><span class="badge bg-secondary-subtle text-secondary-subtle">${item.sizeLabel}</span></td>
                                             <td class="fw-semibold">₹${item.unitPrice}</td>
                                             <td style="width: 140px;">
                                                 <form action="${pageContext.request.contextPath}/cart/update" method="POST" class="d-flex gap-1 align-items-center">

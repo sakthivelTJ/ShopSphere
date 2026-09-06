@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-md-6">
-                <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-bold mb-3">${product.category.categoryName}</span>
+                <span class="badge bg-primary-subtle text-primary-subtle rounded-pill px-3 py-2 fw-bold mb-3">${product.category.categoryName}</span>
                 <h2 class="fw-bold mb-3">${product.productName}</h2>
 
                 <div class="d-flex align-items-baseline gap-3 mb-4">

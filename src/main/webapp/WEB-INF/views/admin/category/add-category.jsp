@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                        <a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-glass-secondary px-4">Cancel</a>
                         <button type="submit" class="btn btn-primary-custom rounded-pill px-4">Save Category</button>
                     </div>
                 </form>

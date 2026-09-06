@@ -44,15 +44,15 @@
                                     <td class="fw-bold text-primary">#${o.orderId}</td>
                                     <td>${o.user.fullName} <br><small class="text-muted">${o.user.email}</small></td>
                                     <td>${o.orderDate}</td>
-                                    <td class="fw-bold">$${o.totalAmount}</td>
-                                    <td><span class="badge bg-light text-dark border">${o.paymentMethod}</span></td>
+                                    <td class="fw-bold">₹${o.totalAmount}</td>
+                                    <td><span class="badge bg-light border">${o.paymentMethod}</span></td>
                                     <td>
                                         <span class="badge ${o.orderStatus == 'DELIVERED' ? 'bg-success' : (o.orderStatus == 'CANCELLED' ? 'bg-danger' : 'bg-warning text-dark')}">
                                             ${o.orderStatus}
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/admin/orders/${o.orderId}" class="btn btn-sm btn-outline-primary rounded-pill">
+                                        <a href="${pageContext.request.contextPath}/admin/orders/${o.orderId}" class="btn btn-sm btn-glass-secondary">
                                             Manage Order <i class="bi bi-gear-fill ms-1"></i>
                                         </a>
                                     </td>

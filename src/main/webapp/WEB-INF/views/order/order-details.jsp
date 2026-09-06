@@ -34,7 +34,7 @@
                             <c:forEach var="item" items="${order.items}">
                                 <tr>
                                     <td class="fw-bold">${item.productName}</td>
-                                    <td><span class="badge bg-secondary-subtle text-secondary">${item.sizeLabel}</span></td>
+                                    <td><span class="badge bg-secondary-subtle text-secondary-subtle">${item.sizeLabel}</span></td>
                                     <td>₹${item.unitPrice}</td>
                                     <td>${item.quantity}</td>
                                     <td class="fw-bold text-primary">₹${item.subtotal}</td>

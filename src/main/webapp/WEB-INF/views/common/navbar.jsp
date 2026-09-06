@@ -21,7 +21,7 @@
                 </div>
             </form>
 
-            <ul class="navbar-nav ms-auto align-items-center gap-3">
+            <ul class="navbar-nav ms-auto align-items-center gap-4">
                 <li class="nav-item">
                     <a class="nav-link fw-semibold" href="${pageContext.request.contextPath}/products"><i class="bi bi-grid-fill me-1"></i> Products</a>
                 </li>

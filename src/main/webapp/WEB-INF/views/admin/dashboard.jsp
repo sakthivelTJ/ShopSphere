@@ -26,7 +26,7 @@
             <h3 class="fw-bold mb-4">Store Analytics & Management Dashboard</h3>
 
             <!-- 4 Stat Summary Cards -->
-            <div class="row g-3 mb-4">
+            <div class="row g-4 mb-5">
                 <div class="col-sm-6 col-xl-3">
                     <div class="stat-card stat-users shadow-sm">
                         <div class="d-flex justify-content-between align-items-center">
@@ -34,7 +34,7 @@
                                 <small class="text-uppercase opacity-75 fw-bold">Total Customers</small>
                                 <h2 class="fw-bold mb-0 mt-1">${dashboard.totalUsers}</h2>
                             </div>
-                            <i class="bi bi-people display-5 opacity-50"></i>
+                            <i class="bi bi-people fs-2 text-primary opacity-75"></i>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                                 <small class="text-uppercase opacity-75 fw-bold">Total Products</small>
                                 <h2 class="fw-bold mb-0 mt-1">${dashboard.totalProducts}</h2>
                             </div>
-                            <i class="bi bi-box-seam display-5 opacity-50"></i>
+                            <i class="bi bi-box-seam fs-2 text-info opacity-75"></i>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                                 <small class="text-uppercase opacity-75 fw-bold">Total Orders</small>
                                 <h2 class="fw-bold mb-0 mt-1">${dashboard.totalOrders}</h2>
                             </div>
-                            <i class="bi bi-cart-check display-5 opacity-50"></i>
+                            <i class="bi bi-cart-check fs-2 text-warning opacity-75"></i>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                 <small class="text-uppercase opacity-75 fw-bold">Gross Revenue</small>
                                 <h2 class="fw-bold mb-0 mt-1">₹${dashboard.totalRevenue}</h2>
                             </div>
-                            <i class="bi bi-currency-rupee display-5 opacity-50"></i>
+                            <i class="bi bi-currency-rupee fs-2 text-success opacity-75"></i>
                         </div>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
                 <!-- Top Selling Products -->
                 <div class="col-lg-6">
                     <div class="card glass-card p-4 shadow-sm h-100">
-                        <h5 class="fw-bold mb-3"><i class="bi bi-trophy-fill text-warning me-2"></i> Top Selling Products (JDBC Query)</h5>
+                        <h5 class="fw-bold mb-3"><i class="bi bi-trophy-fill text-warning me-2"></i> Top Selling Products</h5>
                         <div class="table-responsive">
-                            <table class="table align-middle">
+                            <table class="table table-hover align-middle">
                                 <thead>
                                     <tr>
                                         <th>Product</th>
@@ -95,7 +95,7 @@
                                     <c:forEach var="item" items="${dashboard.topSellingProducts}">
                                         <tr>
                                             <td class="fw-bold">${item.product_name}</td>
-                                            <td><span class="badge bg-primary-subtle text-primary">${item.total_sold} units</span></td>
+                                            <td><span class="badge bg-primary-subtle text-primary-subtle">${item.total_sold} units</span></td>
                                             <td class="fw-bold text-success">₹${item.total_revenue}</td>
                                         </tr>
                                     </c:forEach>
@@ -108,9 +108,9 @@
                 <!-- Low Stock Alert -->
                 <div class="col-lg-6">
                     <div class="card glass-card p-4 shadow-sm h-100">
-                        <h5 class="fw-bold mb-3"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i> Low Stock Alert (JDBC Query)</h5>
+                        <h5 class="fw-bold mb-3"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i> Low Stock Alert</h5>
                         <div class="table-responsive">
-                            <table class="table align-middle">
+                            <table class="table table-hover align-middle">
                                 <thead>
                                     <tr>
                                         <th>Product</th>
@@ -122,7 +122,7 @@
                                     <c:forEach var="item" items="${dashboard.lowStockProducts}">
                                         <tr>
                                             <td class="fw-bold">${item.product_name}</td>
-                                            <td><span class="badge bg-secondary">${item.size_label}</span></td>
+                                            <td><span class="badge bg-secondary-subtle text-secondary-subtle">${item.size_label}</span></td>
                                             <td><span class="badge bg-danger">${item.stock_quantity} left</span></td>
                                         </tr>
                                     </c:forEach>

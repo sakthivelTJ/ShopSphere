@@ -9,8 +9,8 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold m-0">Admin Order Fulfillment <span class="text-primary">#${order.orderId}</span></h3>
-        <a href="${pageContext.request.contextPath}/admin/orders" class="btn btn-outline-secondary rounded-pill">
-            <i class="bi bi-arrow-left"></i> Back to Orders
+        <a href="${pageContext.request.contextPath}/admin/orders" class="btn btn-glass-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Back to Orders
         </a>
     </div>
 
@@ -34,10 +34,10 @@
                             <c:forEach var="item" items="${order.items}">
                                 <tr>
                                     <td class="fw-bold">${item.productName}</td>
-                                    <td><span class="badge bg-secondary-subtle text-secondary">${item.sizeLabel}</span></td>
-                                    <td>$${item.unitPrice}</td>
+                                    <td><span class="badge bg-secondary-subtle text-secondary-subtle">${item.sizeLabel}</span></td>
+                                    <td>₹${item.unitPrice}</td>
                                     <td>${item.quantity}</td>
-                                    <td class="fw-bold text-primary">$${item.subtotal}</td>
+                                    <td class="fw-bold text-primary">₹${item.subtotal}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
