@@ -25,9 +25,10 @@ public class ReportServiceImpl implements ReportService {
         dashboardData.put("totalProducts", reportDAO.getTotalProducts());
         dashboardData.put("totalOrders", reportDAO.getTotalOrders());
         dashboardData.put("totalRevenue", reportDAO.getTotalRevenue());
-        dashboardData.put("topSellingProducts", reportDAO.getTopSellingProducts(5));
-        dashboardData.put("lowStockProducts", reportDAO.getLowStockProducts(5));
+        dashboardData.put("topSellingProducts", reportDAO.getTopSellingProducts(10));
+        dashboardData.put("lowStockProducts", reportDAO.getLowStockProducts(25));
         dashboardData.put("monthlySales", reportDAO.getMonthlySales());
         return dashboardData;
     }
+
 }

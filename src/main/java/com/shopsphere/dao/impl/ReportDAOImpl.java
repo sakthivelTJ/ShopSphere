@@ -47,32 +47,34 @@ public class ReportDAOImpl implements ReportDAO {
 
     @Override
     public List<Map<String, Object>> getTopSellingProducts(int limit) {
-        String sql = "SELECT oi.product_id, oi.product_name, SUM(oi.quantity) as total_sold, SUM(oi.subtotal) as total_revenue " +
+        String sql = "SELECT p.product_id, p.product_name, p.image_url, COALESCE(SUM(oi.quantity), 0) as total_sold, COALESCE(SUM(oi.quantity * oi.price), 0.00) as total_revenue " +
                      "FROM order_items oi " +
                      "JOIN orders o ON oi.order_id = o.order_id " +
+                     "JOIN products p ON oi.product_id = p.product_id " +
                      "WHERE o.order_status != 'CANCELLED' " +
-                     "GROUP BY oi.product_id, oi.product_name " +
+                     "GROUP BY p.product_id, p.product_name, p.image_url " +
                      "ORDER BY total_sold DESC LIMIT ?";
         return jdbcTemplate.queryForList(sql, limit);
     }
 
     @Override
     public List<Map<String, Object>> getLowStockProducts(int threshold) {
-        String sql = "SELECT p.product_id, p.product_name, ps.size_label, ps.stock_quantity " +
+        String sql = "SELECT p.product_id, p.product_name, p.image_url, ps.size_name as size_label, ps.stock_quantity " +
                      "FROM product_sizes ps " +
                      "JOIN products p ON ps.product_id = p.product_id " +
                      "WHERE ps.stock_quantity <= ? " +
-                     "ORDER BY ps.stock_quantity ASC";
+                     "ORDER BY ps.stock_quantity ASC LIMIT 10";
         return jdbcTemplate.queryForList(sql, threshold);
     }
 
     @Override
     public List<Map<String, Object>> getMonthlySales() {
-        String sql = "SELECT DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(order_id) as total_orders, SUM(total_amount) as total_revenue " +
+        String sql = "SELECT DATE_FORMAT(created_at, '%Y-%m') as month, COUNT(order_id) as total_orders, COALESCE(SUM(total_amount), 0.00) as total_revenue " +
                      "FROM orders " +
                      "WHERE order_status != 'CANCELLED' " +
-                     "GROUP BY DATE_FORMAT(order_date, '%Y-%m') " +
+                     "GROUP BY DATE_FORMAT(created_at, '%Y-%m') " +
                      "ORDER BY month DESC LIMIT 12";
         return jdbcTemplate.queryForList(sql);
     }
 }
+

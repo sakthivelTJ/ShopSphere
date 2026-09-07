@@ -81,26 +81,46 @@
                 <!-- Top Selling Products -->
                 <div class="col-lg-6">
                     <div class="card glass-card p-4 shadow-sm h-100">
-                        <h5 class="fw-bold mb-3"><i class="bi bi-trophy-fill text-warning me-2"></i> Top Selling Products</h5>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0"><i class="bi bi-trophy-fill text-warning me-2"></i> Top Selling Products</h5>
+                            <span class="badge bg-primary rounded-pill">Top Performers</span>
+                        </div>
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Units Sold</th>
-                                        <th>Total Sales Revenue</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="item" items="${dashboard.topSellingProducts}">
-                                        <tr>
-                                            <td class="fw-bold">${item.product_name}</td>
-                                            <td><span class="badge bg-primary-subtle text-primary-subtle">${item.total_sold} units</span></td>
-                                            <td class="fw-bold text-success">₹${item.total_revenue}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                            <c:choose>
+                                <c:when test="${not empty dashboard.topSellingProducts}">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th class="text-center">Units Sold</th>
+                                                <th class="text-end">Sales Revenue</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="item" items="${dashboard.topSellingProducts}">
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <c:if test="${not empty item.image_url}">
+                                                                <img src="${item.image_url}" alt="${item.product_name}" class="rounded border border-secondary" style="width: 40px; height: 40px; object-fit: cover;">
+                                                            </c:if>
+                                                            <span class="fw-bold text-truncate" style="max-width: 180px;" title="${item.product_name}">${item.product_name}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center"><span class="badge bg-primary px-3 py-2 fs-7">${item.total_sold} units</span></td>
+                                                    <td class="text-end fw-bold text-success">₹${item.total_revenue}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="bi bi-cart-x fs-1 opacity-50 d-block mb-2"></i>
+                                        <p class="mb-0">No sales recorded yet. Once orders are placed, top selling items will appear here.</p>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -108,30 +128,51 @@
                 <!-- Low Stock Alert -->
                 <div class="col-lg-6">
                     <div class="card glass-card p-4 shadow-sm h-100">
-                        <h5 class="fw-bold mb-3"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i> Low Stock Alert</h5>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i> Low Stock Alert</h5>
+                            <span class="badge bg-danger rounded-pill">Action Required</span>
+                        </div>
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Variant</th>
-                                        <th>Remaining Stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="item" items="${dashboard.lowStockProducts}">
-                                        <tr>
-                                            <td class="fw-bold">${item.product_name}</td>
-                                            <td><span class="badge bg-secondary-subtle text-secondary-subtle">${item.size_label}</span></td>
-                                            <td><span class="badge bg-danger">${item.stock_quantity} left</span></td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                            <c:choose>
+                                <c:when test="${not empty dashboard.lowStockProducts}">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th class="text-center">Variant</th>
+                                                <th class="text-end">Remaining Stock</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="item" items="${dashboard.lowStockProducts}">
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <c:if test="${not empty item.image_url}">
+                                                                <img src="${item.image_url}" alt="${item.product_name}" class="rounded border border-secondary" style="width: 40px; height: 40px; object-fit: cover;">
+                                                            </c:if>
+                                                            <span class="fw-bold text-truncate" style="max-width: 180px;" title="${item.product_name}">${item.product_name}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center"><span class="badge bg-secondary px-2 py-1">${item.size_label}</span></td>
+                                                    <td class="text-end"><span class="badge bg-danger px-3 py-2 fs-7"><i class="bi bi-box-seam me-1"></i> ${item.stock_quantity} left</span></td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="text-center py-4 text-success">
+                                        <i class="bi bi-check-circle fs-1 opacity-75 d-block mb-2"></i>
+                                        <p class="mb-0">All products have healthy inventory levels!</p>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
