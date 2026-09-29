@@ -168,80 +168,85 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        // 1. Seed Demo Users if missing
-        if (userDAO.findByEmail("admin@shopsphere.com") == null) {
-            User admin = new User(
-                    "ShopSphere Admin",
-                    "admin@shopsphere.com",
-                    "+91 98765 43210",
-                    PasswordUtil.hashPassword("admin123"),
-                    "Male",
-                    "Cyber City, Tower B, Sector 24, Gurugram, Haryana - 122002",
-                    "ADMIN"
-            );
-            userDAO.save(admin);
+        try {
+            // 1. Seed Demo Users if missing
+            if (userDAO.findByEmail("admin@shopsphere.com") == null) {
+                User admin = new User(
+                        "ShopSphere Admin",
+                        "admin@shopsphere.com",
+                        "+91 98765 43210",
+                        PasswordUtil.hashPassword("admin123"),
+                        "Male",
+                        "Cyber City, Tower B, Sector 24, Gurugram, Haryana - 122002",
+                        "ADMIN"
+                );
+                userDAO.save(admin);
+            }
+
+            if (userDAO.findByEmail("customer@shopsphere.com") == null) {
+                User customer = new User(
+                        "Aarav Sharma",
+                        "customer@shopsphere.com",
+                        "+91 98123 45678",
+                        PasswordUtil.hashPassword("customer123"),
+                        "Male",
+                        "Flat 402, Royal Palms, Bandra West, Mumbai, Maharashtra - 400050",
+                        "CUSTOMER"
+                );
+                userDAO.save(customer);
+            }
+
+            // 2. Seed default products if database is empty
+            if (productDAO.findAll().isEmpty()) {
+
+                // CATEGORY 1: Electronics & Gadgets
+                Category electronics = new Category("Electronics & Gadgets", "Smartphones, Audio, Laptops, Wearables & Accessories", true);
+                categoryDAO.save(electronics);
+
+                createProductWithSizes(electronics, "Premium Android Smartphone", "High-performance Android smartphone with crisp display and long battery life.", "62999.10", "10.00", PRODUCT_IMAGE_MAP.get("Premium Android Smartphone"), "128GB Black", 25, "256GB Silver", 15);
+                createProductWithSizes(electronics, "Apple iPhone", "Flagship smartphone featuring Retina display, Bionic chip, and advanced dual cameras.", "73599.08", "8.00", PRODUCT_IMAGE_MAP.get("Apple iPhone"), "128GB Midnight", 30, "256GB Starlight", 20);
+                createProductWithSizes(electronics, "5G Performance Smartphone", "Ultra-fast 5G connectivity, 120Hz AMOLED display, 50MP triple camera system.", "21249.15", "15.00", PRODUCT_IMAGE_MAP.get("5G Performance Smartphone"), "8GB RAM + 128GB", 40, "12GB RAM + 256GB", 25);
+                createProductWithSizes(electronics, "Noise Cancelling Earbuds", "Active noise cancelling TWS earbuds with deep bass and 30-hour battery case.", "3999.20", "20.00", PRODUCT_IMAGE_MAP.get("Noise Cancelling Earbuds"), "Matte Black", 50, "Glacier White", 35);
+                createProductWithSizes(electronics, "Premium Wireless Headphones", "Over-ear audiophile headphones with spatial audio and plush memory foam earcups.", "21249.15", "15.00", PRODUCT_IMAGE_MAP.get("Premium Wireless Headphones"), "Silver Gray", 15, "Midnight Black", 12);
+                createProductWithSizes(electronics, "Bluetooth Stereo Headphones", "Lightweight wireless headphones with rich stereo sound and built-in microphone.", "4919.18", "18.00", PRODUCT_IMAGE_MAP.get("Bluetooth Stereo Headphones"), "Standard Black", 30, "Navy Blue", 20);
+                createProductWithSizes(electronics, "Performance Laptop", "15.6-inch FHD laptop with Intel Core i7, 16GB RAM, 512GB NVMe SSD.", "65999.12", "12.00", PRODUCT_IMAGE_MAP.get("Performance Laptop"), "16GB RAM / 512GB SSD", 15, "32GB RAM / 1TB SSD", 10);
+                createProductWithSizes(electronics, "Slim Pro Laptop", "Ultra-thin aluminum chassis, 14-inch OLED display, all-day 18-hour battery.", "89999.10", "10.00", PRODUCT_IMAGE_MAP.get("Slim Pro Laptop"), "Core i5 / 16GB", 20, "Core i7 / 16GB", 12);
+                createProductWithSizes(electronics, "Gaming Laptop", "High-tier gaming laptop with RTX 4070 GPU, 240Hz display, and per-key RGB keyboard.", "97749.15", "15.00", PRODUCT_IMAGE_MAP.get("Gaming Laptop"), "RTX 4060 / 16GB", 10, "RTX 4070 / 32GB", 6);
+                createProductWithSizes(electronics, "Fitness Smartwatch", "Rugged GPS smartwatch with heart rate monitoring, sleep tracking, and 50m water resistance.", "7199.20", "20.00", PRODUCT_IMAGE_MAP.get("Fitness Smartwatch"), "Black Sport Band", 35, "Orange Rugged Strap", 20);
+
+                // CATEGORY 2: Fashion & Apparel
+                Category fashion = new Category("Fashion & Apparel", "Men & Women Designer Clothing, Footwear & Accessories", true);
+                categoryDAO.save(fashion);
+
+                createProductWithSizes(fashion, "Classic Slim Fit Shirt", "100% premium cotton slim fit formal button-down shirt.", "1874.25", "25.00", PRODUCT_IMAGE_MAP.get("Classic Slim Fit Shirt"), "Size 39 (M)", 30, "Size 40 (L)", 25);
+                createProductWithSizes(fashion, "Slim Fit Denim Jeans", "Durable stretch denim jeans with classic 5-pocket styling.", "2399.20", "20.00", PRODUCT_IMAGE_MAP.get("Slim Fit Denim Jeans"), "30W x 32L", 35, "32W x 32L", 40);
+                createProductWithSizes(fashion, "Minimal White Sneakers", "Clean minimalist leather sneakers with rubber cupsole.", "2624.25", "25.00", PRODUCT_IMAGE_MAP.get("Minimal White Sneakers"), "UK 8", 25, "UK 9", 30);
+                createProductWithSizes(fashion, "Luxury Leather Handbag", "Genuine Italian leather shoulder handbag with gold-tone hardware.", "5949.15", "15.00", PRODUCT_IMAGE_MAP.get("Luxury Leather Handbag"), "Chestnut Brown", 15, "Midnight Black", 12);
+
+                // CATEGORY 3: Home & Living
+                Category home = new Category("Home & Living", "Furnishings, Kitchen Appliances & Modern Home Decor", true);
+                categoryDAO.save(home);
+
+                createProductWithSizes(home, "Digital Air Fryer", "Rapid hot air circulation technology for healthy oil-free cooking.", "6399.20", "20.00", PRODUCT_IMAGE_MAP.get("Digital Air Fryer"), "4.5 Litre Black", 25, "5.5 Litre Stainless", 18);
+                createProductWithSizes(home, "High Speed Kitchen Blender", "1200W motor blender for smoothies, frozen drinks, and food prep.", "2799.20", "20.00", PRODUCT_IMAGE_MAP.get("High Speed Kitchen Blender"), "Standard Pitcher Kit", 30, "Single Serve Cup Kit", 20);
+                createProductWithSizes(home, "Modern Living Room Sofa", "Plush 3-seater fabric sofa with high-density foam cushioning.", "25499.15", "15.00", PRODUCT_IMAGE_MAP.get("Modern Living Room Sofa"), "Charcoal Grey", 8, "Beige Linen", 5);
+
+                // CATEGORY 4: Beauty & Personal Care
+                Category beauty = new Category("Beauty & Personal Care", "Skincare, Haircare, Perfumes & Grooming Essentials", true);
+                categoryDAO.save(beauty);
+
+                createProductWithSizes(beauty, "Vitamin C Brightening Serum", "Antioxidant-rich vitamin C serum for glowing, radiant skin.", "1199.20", "20.00", PRODUCT_IMAGE_MAP.get("Vitamin C Brightening Serum"), "30ml Dropper", 50, "50ml Refill", 30);
+                createProductWithSizes(beauty, "Professional Hair Dryer", "2000W ionic salon-grade hair dryer with diffuser attachment.", "2549.15", "15.00", PRODUCT_IMAGE_MAP.get("Professional Hair Dryer"), "Matte Black", 25, "Rose Gold", 20);
+                createProductWithSizes(beauty, "Rechargeable Beard Trimmer", "Self-sharpening titanium blades with 20 precision length settings.", "2049.18", "18.00", PRODUCT_IMAGE_MAP.get("Rechargeable Beard Trimmer"), "Black Kit", 40, "Silver Pro", 25);
+            }
+
+            // 3. Always update all existing products in DB with accurate, product-specific image URLs
+            updateExistingProductImages();
+        } catch (Exception e) {
+            System.err.println("DataInitializer warning: Initialization step skipped due to: " + e.getMessage());
         }
-
-        if (userDAO.findByEmail("customer@shopsphere.com") == null) {
-            User customer = new User(
-                    "Aarav Sharma",
-                    "customer@shopsphere.com",
-                    "+91 98123 45678",
-                    PasswordUtil.hashPassword("customer123"),
-                    "Male",
-                    "Flat 402, Royal Palms, Bandra West, Mumbai, Maharashtra - 400050",
-                    "CUSTOMER"
-            );
-            userDAO.save(customer);
-        }
-
-        // 2. Seed default products if database is empty
-        if (productDAO.findAll().isEmpty()) {
-
-            // CATEGORY 1: Electronics & Gadgets
-            Category electronics = new Category("Electronics & Gadgets", "Smartphones, Audio, Laptops, Wearables & Accessories", true);
-            categoryDAO.save(electronics);
-
-            createProductWithSizes(electronics, "Premium Android Smartphone", "High-performance Android smartphone with crisp display and long battery life.", "62999.10", "10.00", PRODUCT_IMAGE_MAP.get("Premium Android Smartphone"), "128GB Black", 25, "256GB Silver", 15);
-            createProductWithSizes(electronics, "Apple iPhone", "Flagship smartphone featuring Retina display, Bionic chip, and advanced dual cameras.", "73599.08", "8.00", PRODUCT_IMAGE_MAP.get("Apple iPhone"), "128GB Midnight", 30, "256GB Starlight", 20);
-            createProductWithSizes(electronics, "5G Performance Smartphone", "Ultra-fast 5G connectivity, 120Hz AMOLED display, 50MP triple camera system.", "21249.15", "15.00", PRODUCT_IMAGE_MAP.get("5G Performance Smartphone"), "8GB RAM + 128GB", 40, "12GB RAM + 256GB", 25);
-            createProductWithSizes(electronics, "Noise Cancelling Earbuds", "Active noise cancelling TWS earbuds with deep bass and 30-hour battery case.", "3999.20", "20.00", PRODUCT_IMAGE_MAP.get("Noise Cancelling Earbuds"), "Matte Black", 50, "Glacier White", 35);
-            createProductWithSizes(electronics, "Premium Wireless Headphones", "Over-ear audiophile headphones with spatial audio and plush memory foam earcups.", "21249.15", "15.00", PRODUCT_IMAGE_MAP.get("Premium Wireless Headphones"), "Silver Gray", 15, "Midnight Black", 12);
-            createProductWithSizes(electronics, "Bluetooth Stereo Headphones", "Lightweight wireless headphones with rich stereo sound and built-in microphone.", "4919.18", "18.00", PRODUCT_IMAGE_MAP.get("Bluetooth Stereo Headphones"), "Standard Black", 30, "Navy Blue", 20);
-            createProductWithSizes(electronics, "Performance Laptop", "15.6-inch FHD laptop with Intel Core i7, 16GB RAM, 512GB NVMe SSD.", "65999.12", "12.00", PRODUCT_IMAGE_MAP.get("Performance Laptop"), "16GB RAM / 512GB SSD", 15, "32GB RAM / 1TB SSD", 10);
-            createProductWithSizes(electronics, "Slim Pro Laptop", "Ultra-thin aluminum chassis, 14-inch OLED display, all-day 18-hour battery.", "89999.10", "10.00", PRODUCT_IMAGE_MAP.get("Slim Pro Laptop"), "Core i5 / 16GB", 20, "Core i7 / 16GB", 12);
-            createProductWithSizes(electronics, "Gaming Laptop", "High-tier gaming laptop with RTX 4070 GPU, 240Hz display, and per-key RGB keyboard.", "97749.15", "15.00", PRODUCT_IMAGE_MAP.get("Gaming Laptop"), "RTX 4060 / 16GB", 10, "RTX 4070 / 32GB", 6);
-            createProductWithSizes(electronics, "Fitness Smartwatch", "Rugged GPS smartwatch with heart rate monitoring, sleep tracking, and 50m water resistance.", "7199.20", "20.00", PRODUCT_IMAGE_MAP.get("Fitness Smartwatch"), "Black Sport Band", 35, "Orange Rugged Strap", 20);
-
-            // CATEGORY 2: Fashion & Apparel
-            Category fashion = new Category("Fashion & Apparel", "Men & Women Designer Clothing, Footwear & Accessories", true);
-            categoryDAO.save(fashion);
-
-            createProductWithSizes(fashion, "Classic Slim Fit Shirt", "100% premium cotton slim fit formal button-down shirt.", "1874.25", "25.00", PRODUCT_IMAGE_MAP.get("Classic Slim Fit Shirt"), "Size 39 (M)", 30, "Size 40 (L)", 25);
-            createProductWithSizes(fashion, "Slim Fit Denim Jeans", "Durable stretch denim jeans with classic 5-pocket styling.", "2399.20", "20.00", PRODUCT_IMAGE_MAP.get("Slim Fit Denim Jeans"), "30W x 32L", 35, "32W x 32L", 40);
-            createProductWithSizes(fashion, "Minimal White Sneakers", "Clean minimalist leather sneakers with rubber cupsole.", "2624.25", "25.00", PRODUCT_IMAGE_MAP.get("Minimal White Sneakers"), "UK 8", 25, "UK 9", 30);
-            createProductWithSizes(fashion, "Luxury Leather Handbag", "Genuine Italian leather shoulder handbag with gold-tone hardware.", "5949.15", "15.00", PRODUCT_IMAGE_MAP.get("Luxury Leather Handbag"), "Chestnut Brown", 15, "Midnight Black", 12);
-
-            // CATEGORY 3: Home & Living
-            Category home = new Category("Home & Living", "Furnishings, Kitchen Appliances & Modern Home Decor", true);
-            categoryDAO.save(home);
-
-            createProductWithSizes(home, "Digital Air Fryer", "Rapid hot air circulation technology for healthy oil-free cooking.", "6399.20", "20.00", PRODUCT_IMAGE_MAP.get("Digital Air Fryer"), "4.5 Litre Black", 25, "5.5 Litre Stainless", 18);
-            createProductWithSizes(home, "High Speed Kitchen Blender", "1200W motor blender for smoothies, frozen drinks, and food prep.", "2799.20", "20.00", PRODUCT_IMAGE_MAP.get("High Speed Kitchen Blender"), "Standard Pitcher Kit", 30, "Single Serve Cup Kit", 20);
-            createProductWithSizes(home, "Modern Living Room Sofa", "Plush 3-seater fabric sofa with high-density foam cushioning.", "25499.15", "15.00", PRODUCT_IMAGE_MAP.get("Modern Living Room Sofa"), "Charcoal Grey", 8, "Beige Linen", 5);
-
-            // CATEGORY 4: Beauty & Personal Care
-            Category beauty = new Category("Beauty & Personal Care", "Skincare, Haircare, Perfumes & Grooming Essentials", true);
-            categoryDAO.save(beauty);
-
-            createProductWithSizes(beauty, "Vitamin C Brightening Serum", "Antioxidant-rich vitamin C serum for glowing, radiant skin.", "1199.20", "20.00", PRODUCT_IMAGE_MAP.get("Vitamin C Brightening Serum"), "30ml Dropper", 50, "50ml Refill", 30);
-            createProductWithSizes(beauty, "Professional Hair Dryer", "2000W ionic salon-grade hair dryer with diffuser attachment.", "2549.15", "15.00", PRODUCT_IMAGE_MAP.get("Professional Hair Dryer"), "Matte Black", 25, "Rose Gold", 20);
-            createProductWithSizes(beauty, "Rechargeable Beard Trimmer", "Self-sharpening titanium blades with 20 precision length settings.", "2049.18", "18.00", PRODUCT_IMAGE_MAP.get("Rechargeable Beard Trimmer"), "Black Kit", 40, "Silver Pro", 25);
-        }
-
-        // 3. Always update all existing products in DB with accurate, product-specific image URLs
-        updateExistingProductImages();
     }
+
 
     private void updateExistingProductImages() {
         List<Product> products = productDAO.findAll();
