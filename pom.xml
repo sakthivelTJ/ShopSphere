@@ -82,7 +82,8 @@
     </dependencies>
 
     <build>
-        <finalName>app</finalName>
+        <finalName>ShopSphere-0.0.1-SNAPSHOT</finalName>
+
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
