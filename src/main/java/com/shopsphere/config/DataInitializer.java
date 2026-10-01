@@ -251,7 +251,7 @@ public class DataInitializer implements CommandLineRunner {
     private void updateExistingProductImages() {
         List<Product> products = productDAO.findAll();
         for (Product p : products) {
-            if (p.getProductName() != null) {
+            if (p.getProductName() != null && (p.getImageUrl() == null || p.getImageUrl().trim().isEmpty())) {
                 String cleanName = p.getProductName().trim();
                 String matchedUrl = findMatchingImageUrl(cleanName);
                 if (matchedUrl != null) {
