@@ -1,0 +1,11 @@
+[providers]
+providers = ["java"]
+
+[buildImage]
+javaVersion = "17"
+
+[phases.build]
+cmds = ["mvn clean package -DskipTests"]
+
+[start]
+cmd = "java -jar target/ShopSphere-0.0.1-SNAPSHOT.war"
