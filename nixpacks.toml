@@ -1,11 +1,10 @@
-[providers]
 providers = ["java"]
 
-[buildImage]
-javaVersion = "17"
+[variables]
+NIXPACKS_JDK_VERSION = "17"
 
 [phases.build]
 cmds = ["mvn clean package -DskipTests"]
 
 [start]
-cmd = "sh -c 'java -Dserver.port=${PORT:-8080} -Dserver.address=0.0.0.0 -jar target/ShopSphere-0.0.1-SNAPSHOT.war'"
+cmd = "java -Dserver.port=$PORT -Dserver.address=0.0.0.0 -jar target/ShopSphere-0.0.1-SNAPSHOT.war"
